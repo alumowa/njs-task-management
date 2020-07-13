@@ -67,18 +67,20 @@ export class TasksService {
 
         const { affected }: DeleteResult = await this.taskRepository.delete(id);
 
-        if(!affected){
+        if(affected === 0){
             throw new HttpException('Not Found!', HttpStatus.NOT_FOUND);
         }
 
         return Promise.resolve();
     }
 
-    // updateTaskStatus(id: string, status: TaskStatus): Task {
+    async updateTaskStatus(id: number, status: TaskStatus): Promise<Task> {
 
-    //     const task = this.getTaskById(id);
-    //     task.status = status;
-    //     return task;
-    // }
+        const task = await this.getTaskById(id);
+        task.status = status;
+        await task.save();
+
+        return task;
+    }
 
 }
