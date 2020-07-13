@@ -14,15 +14,11 @@ export class TasksController {
 
     }
 
-    // @Get()
-    // getTasks(@Query(ValidationPipe) filterDto: GetTaskFilterDto): Task[] {
+    @Get()
+    getTasks(@Query(ValidationPipe) filterDto: GetTaskFilterDto) {
 
-    //     if(Object.keys(filterDto).length){
-    //         return this.tasksService.getTasksWithFilters(filterDto);
-    //     }
-
-    //     return this.tasksService.getAllTasks();
-    // }
+        return this.tasksService.getTasks(filterDto);
+    }
 
     @Get('/:id')
     getTaskById(@Param('id', ParseIntPipe) id: number): Promise<Task> {
